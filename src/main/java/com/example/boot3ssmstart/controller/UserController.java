@@ -2,6 +2,8 @@ package com.example.boot3ssmstart.controller;
 
 import com.example.boot3ssmstart.bean.User;
 import com.example.boot3ssmstart.service.UserService;
+import com.example.boot3ssmstart.util.Response;
+import com.example.boot3ssmstart.util.StateCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,32 +16,37 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(value = "/user/{userId}")
-    public User getUserById(@PathVariable Long userId) {
+    public Response<Object> getUserById(@PathVariable Long userId) {
         // 根据 userId 查询数据库，得到 user
-        return userService.getUserById(userId);
+        User data = userService.getUserById(userId);
+        return new Response<>(StateCode.SUCCESS.getCode(), StateCode.SUCCESS.getMessage(), data);
     }
 
     @GetMapping(value ="/users")
-    public List<User> getUsers() {
+    public Response<Object> getUsers() {
         // 查询全部用户得到列表 List
-        return userService.getAllUsers();
+        List<User> data = userService.getAllUsers();
+        return new Response<>(StateCode.SUCCESS.getCode(), StateCode.SUCCESS.getMessage(), data);
     }
 
     @PostMapping("/user")
-    public void saveUser(@RequestBody User user) {
+    public Response<Object> saveUser(@RequestBody User user) {
         // 调用 Service 层保存 user
-        userService.saveUser(user);
+        boolean data = userService.saveUser(user);
+        return new Response<>(StateCode.SUCCESS.getCode(), StateCode.SUCCESS.getMessage(), data);
     }
 
     @PutMapping(value = "/user/{userId}")
-    public void updateUser(@PathVariable Long userId, @RequestBody User user) {
+    public Response<Object> updateUser(@PathVariable Long userId, @RequestBody User user) {
         // 调用 Service 层更新 user
-        userService.updateUserById(userId, user);
+        boolean data = userService.updateUserById(userId, user);
+        return new Response<>(StateCode.SUCCESS.getCode(), StateCode.SUCCESS.getMessage(), data);
     }
 
     @DeleteMapping(value = "/user/{userId}")
-    public void deleteUserById(@PathVariable Long userId) {
+    public Response<Object> deleteUserById(@PathVariable Long userId) {
         // 调用 Service 层根据 userId 删除 user
-        userService.deleteUserById(userId);
+        boolean data = userService.deleteUserById(userId);
+        return new Response<>(StateCode.SUCCESS.getCode(), StateCode.SUCCESS.getMessage(), data);
     }
 }

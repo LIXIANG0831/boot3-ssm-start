@@ -1,19 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.boot3ssmstart.mapper.UserMapper">
-    <insert id="saveUser" parameterType="com.example.boot3ssmstart.bean.User">
-        insert into t_user(name,age) values (#{user.name},#{user.age});
-    </insert>
-    <update id="updateUserById" parameterType="com.example.boot3ssmstart.bean.User">
-        update t_user set name = #{user.name}, age = #{user.age} where id = #{userId};
-    </update>
-    <delete id="deleteUserById">
-        delete from t_user where id = #{id};
-    </delete>
-    <select id="getUserById" resultType="com.example.boot3ssmstart.bean.User">
-        select * from t_user where id = #{id};
-    </select>
-    <select id="getAllUsers" resultType="com.example.boot3ssmstart.bean.User">
-        select * from t_user;
-    </select>
 </mapper>
